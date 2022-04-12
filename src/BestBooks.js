@@ -18,6 +18,7 @@ class BestBooks extends React.Component {
       const url = `http://localhost:3001/books`;
       const booksResponse = await axios.get(url);
       console.log(booksResponse.data);
+      this.setState({books: booksResponse.data});
     } catch (error) {
       console.log(error);
     }
