@@ -3,6 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import BestBooks from './BestBooks';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import About from './About';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,10 +17,12 @@ class App extends React.Component {
         <Router>
           <Header />
           <Switch>
-            <Route exact path="/">
+            <Route path="/">
               <BestBooks />
             </Route>
-            {/* PLACEHOLDER: add a route with a path of '/about' that renders the `About` component */}
+            <Route path="/about">
+            <About />
+            </Route>
           </Switch>
           <Footer />
         </Router>
