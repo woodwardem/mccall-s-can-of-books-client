@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { Carousel } from 'bootstrap';
-import bookImg from './book.jpeg';
+import { Carousel } from 'react-bootstrap';
+import bookImg from './bookimage.jpeg';
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +20,7 @@ class BestBooks extends React.Component {
       const url = `http://localhost:3001/books`;
       const booksResponse = await axios.get(url);
       console.log(booksResponse.data);
-      this.setState({books: booksResponse.data});
+      this.setState({ books: booksResponse.data });
     } catch (error) {
       console.log(error);
     }
@@ -37,26 +37,23 @@ class BestBooks extends React.Component {
 
         {this.state.books.length ? (
           <Carousel>
-  {this.state.books.map(book => (
+            {this.state.books.map(book => (
+              <Carousel.Item key={book._id}>
+                <img
+                  className="d-block w-100"
+                  src={bookImg}
+                  alt={book.title}
+                />
 
- 
-  
-  <Carousel.Item key={book._id}>
-    <img
-      className="d-block w-100"
-      src={bookImg}
-    alt={book.title}
-    />
+                <Carousel.Caption>
+                  <h3>{book.title}</h3>
+                  <p>{book.description}</p>
+                  <p>Status: {book.status}</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
+          </Carousel>
 
-    <Carousel.Caption>
-      <h3>{Book.title}</h3>
-      <p>{book.description}</p>
-      <p>Status: {book.status}</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  ))}
-</Carousel>
-         
         ) : (
           <h3>No Books Found :(</h3>
         )}
