@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
 import bookImg from './bookimage.jpeg';
+import Container from "react-bootstrap/Container";
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
@@ -36,24 +37,25 @@ class BestBooks extends React.Component {
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
         {this.state.books.length ? (
-          <Carousel>
-            {this.state.books.map(book => (
-              <Carousel.Item key={book._id}>
-                <img
-                  className="d-block w-100"
-                  src={bookImg}
-                  alt={book.title}
-                />
+          <Container >
+            <Carousel>
+              {this.state.books.map(book => (
+                <Carousel.Item key={book._id}>
+                  <img
+                    className="d-block w-100"
+                    src={bookImg}
+                    alt={book.title}
+                  />
 
-                <Carousel.Caption>
-                  <h3>{book.title}</h3>
-                  <p>{book.description}</p>
-                  <p>Status: {book.status}</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-
+                  <Carousel.Caption>
+                    <h3>{book.title}</h3>
+                    <p>{book.description}</p>
+                    <p>Status: {book.status}</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          </Container>
         ) : (
           <h3>No Books Found :(</h3>
         )}
