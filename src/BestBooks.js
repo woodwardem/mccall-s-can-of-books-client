@@ -1,13 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Button } from 'react-bootstrap';
 import bookImg from './bookimage.jpeg';
 import Container from "react-bootstrap/Container";
+import BookFormModal from './BookformModal';
+
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      showForm: false
     }
   }
 
@@ -27,6 +30,20 @@ class BestBooks extends React.Component {
     }
   }
 
+  handleClose = () => this.setState({ showForm: false })
+
+
+  createBook = async newBook => {
+    const config = {
+      method: "post",
+      baseURL: "process.env.REACT_APP_SERVER",
+      url: "/books/",
+      data: newBook
+    };
+    const bookResults = await axios(config);
+    const updatedBooks = [...this.state.books, bookResults.data];
+    this.setState({books : updatedBooks})
+  }
 
   render() {
 
@@ -35,7 +52,10 @@ class BestBooks extends React.Component {
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-
+        <Button onClick={() => this.setState({ showForm: true })}>
+          add a book
+        </Button>
+        {this.state.showForm && <BookFormModal handleClose={this.handleClose} show={this.state.showForm} createBook = {this.createBook}/>}
         {this.state.books.length ? (
           <Container >
             <Carousel>
