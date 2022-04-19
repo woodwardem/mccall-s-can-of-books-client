@@ -36,7 +36,7 @@ class BestBooks extends React.Component {
   createBook = async newBook => {
     const config = {
       method: "post",
-      baseURL: "process.env.REACT_APP_SERVER",
+      baseURL: process.env.REACT_APP_SERVER,
       url: "/books/",
       data: newBook
     };
