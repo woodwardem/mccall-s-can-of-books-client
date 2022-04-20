@@ -1,0 +1,12 @@
+#carousel-image {
+    max-height: 770px;
+    opacity: .65;
+}
+
+#carousel-text-box {
+    background-color: darkgray;
+    opacity: .80;
+    padding: 5%;
+    border: 2px solid black;
+    margin-bottom: 20%;
+}

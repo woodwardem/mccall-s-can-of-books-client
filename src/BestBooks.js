@@ -29,7 +29,25 @@ class BestBooks extends React.Component {
       console.log(error);
     }
   }
-
+deleteBook = async (bookToBeDeleted) => {
+  try {
+const proceed = window.confirm(`Do you want to delete ${bookToBeDeleted.title}?`);
+  
+if (proceed) {
+  let newBooks = this.state.books.filter(book => book._id !== bookToBeDeleted._id);
+  this.setState({books: newBooks});
+  
+  const config = {
+    method: "delete",
+    baseURL: process.env.REACT_APP_SERVER,
+    url: `/books/${bookToBeDeleted._id}`
+  };
+  await axios(config);
+}
+} catch (error) {
+console.error(error);
+  }
+}
   handleClose = () => this.setState({ showForm: false })
 
 
@@ -62,15 +80,17 @@ class BestBooks extends React.Component {
               {this.state.books.map(book => (
                 <Carousel.Item key={book._id}>
                   <img
+                    id='carousel-image'
                     className="d-block w-100"
                     src={bookImg}
                     alt={book.title}
                   />
 
-                  <Carousel.Caption>
+                  <Carousel.Caption id='carousel-text-box'>
                     <h3>{book.title}</h3>
                     <p>{book.description}</p>
                     <p>Status: {book.status}</p>
+                  <Button onClick= {() => this.deleteBook(book)}>Delete</Button>
                   </Carousel.Caption>
                 </Carousel.Item>
               ))}
